@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { Layout } from './components/layout/Layout';
+import PokemonList from './pages/pokemon-list/PokemonList';
+import FavoritePokemonList from './pages/favorite-pokemon-list/FavoritePokemonList';
+import { ReactNode } from 'react';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {createRoute('/', <PokemonList />)}
+        {createRoute('/favorites', <FavoritePokemonList />)}
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function createRoute(path: string, element: ReactNode) {
+  return (
+    <Route
+      key={path}
+      path={path}
+      element={
+        <Layout>
+          {element}
+        </Layout>
+      }
+    />
   );
 }
 
